@@ -342,6 +342,10 @@
   hosts: all:!mapr-hue
   roles:
     - mapr-hue-uninstall
+- name: Install Custom OpenTSDB
+  hosts: mapr-opentsdb-custom
+  roles:
+    - mapr-opentsdb-custom-install
 - name: Install MapR collectd
   hosts: mapr-collectd
   roles:

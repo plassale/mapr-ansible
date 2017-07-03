@@ -17,8 +17,18 @@
 - name: Set tsd.storage.hbase.meta_table in opentsdb.conf
   lineinfile: dest={{ opentsdb_path_result.files[0].path }}/etc/opentsdb/opentsdb.conf regexp="^tsd\.storage\.hbase\.meta_table" line="tsd.storage.hbase.meta_table = /var/mapr/custom.tsdb/tsdb-meta"
 
-# CHUFE sudo ln -s /opt/mapr/asynchbase/asynchbase-1.7.0/asynchbase-1.7.0-mapr-1607.jar /opt/mapr/opentsdb/opentsdb-2.3.0/share/opentsdb/lib/
-
+- name: Find Asyncbase Path
+  find: paths="/opt/mapr/asynchbase/" patterns="asynchbase*" file_type=directory
+  register: asynchbase_path_result
+  failed_when: asynchbase_path_result.matched != 1
+- name: Find Asynchbase Path JAR
+  find: paths="{{ asynchbase_path_result.files[0].path }}" patterns="asynchbase*.jar" file_type=file
+  register: asynchbase_jar_path_result
+  failed_when: asynchbase_jar_path_result.matched == 0
+- name: Link Asynchbase.jar to OpenTSDB
+#  debug: msg="{{ item.path }}"
+  file: src={{ item.path }} dest={{ opentsdb_path_result.files[0].path }}/share/opentsdb/lib/{{ item.path | basename }} state=link
+  with_items: "{{ asynchbase_jar_path_result.files }}"
 - name: Create custom OpenTSDB table structure
   shell: /opt/mapr/opentsdb/opentsdb-2.3.0/share/opentsdb/tools/create_table.sh
   environment:
