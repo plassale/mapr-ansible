@@ -129,6 +129,9 @@ common
 [mapr-oozie:children]
 common
 
+# Custom OpenTSDB, do NOT install on same node as mapr-opentsdb
+[mapr-opentsdb-custom]
+
 # CollectD
 [mapr-collectd:children]
 #common

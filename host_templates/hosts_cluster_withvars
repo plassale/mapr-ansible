@@ -134,6 +134,9 @@ security_all=maprsasl
 [mapr-oozie]
 10.0.0.132 ansible_user=centos ansible_become=yes ansible_become_method=sudo
 
+# Custom OpenTSDB, do NOT install on same node as mapr-opentsdb
+[mapr-opentsdb-custom]
+
 # CollectD
 [mapr-collectd:children]
 mapr-core

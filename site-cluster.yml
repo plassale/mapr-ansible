@@ -355,7 +355,7 @@
   roles:
     - mapr-opentsdb-install
 - name: Uninstall MapR OpenTSDB
-  hosts: all:!mapr-opentsdb
+  hosts: all:!mapr-opentsdb:!mapr-opentsdb-custom
   roles:
     - mapr-opentsdb-uninstall
 - name: Install MapR Grafana
