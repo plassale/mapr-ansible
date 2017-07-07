@@ -27,6 +27,22 @@
   environment:
     MAPR_TICKETFILE_LOCATION: /opt/mapr/conf/mapruserticket
   when: inventory_hostname == groups["mapr-spark-yarn"][0]
+- name: Create maprfs:///warehouse/spark
+  shell: hadoop fs -mkdir -p /warehouse/spark
+  environment:
+    MAPR_TICKETFILE_LOCATION: /opt/mapr/conf/mapruserticket
+  when: inventory_hostname == groups["mapr-spark-yarn"][0]
+- name: Owner maprfs:///warehouse/spark
+  shell: hadoop fs -chown -R {{ mapr_user }}:{{ mapr_group }} /warehouse
+  environment:
+    MAPR_TICKETFILE_LOCATION: /opt/mapr/conf/mapruserticket
+  when: inventory_hostname == groups["mapr-spark-yarn"][0]
+- name: Owner maprfs:///warehouse/spark
+  shell: hadoop fs -chmod -R 777 /warehouse
+  environment:
+    MAPR_TICKETFILE_LOCATION: /opt/mapr/conf/mapruserticket
+  when: inventory_hostname == groups["mapr-spark-yarn"][0]
+
 - name: Set owner mapr-system user
   file: path=/opt/mapr/spark owner={{ mapr_user }} group={{ mapr_group }} state=directory recurse=yes
 
@@ -69,3 +85,6 @@
 - name: Enable Spark authentication in spark-defaults.conf
   lineinfile: dest={{ spark_path_result.files[0].path }}/conf/spark-defaults.conf regexp="^spark\.authenticate\.enableSaslEncryption" line="spark.authenticate.enableSaslEncryption true"
   when: spark_sasl_encryption == true
+
+- name: Spark Warehouse dir
+  lineinfile: dest={{ spark_path_result.files[0].path }}/conf/spark-defaults.conf regexp="^spark\.sql\.warehouse\.dir" line="spark.sql.warehouse.dir /warehouse/spark"
