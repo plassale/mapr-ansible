@@ -1,7 +1,7 @@
 ---
 # Oracle JDK playbook
 - name: Downloading Java JDK
-  get_url: url={{ oracle_jdk_url }} force=yes mode=0440 headers="Cookie:oraclelicense=accept-securebackup-cookie" dest=/tmp/oracle-jdk.tar.gz timeout=120
+  get_url: url={{ oracle_jdk_url }} force=yes mode=0440 dest=/tmp/oracle-jdk.tar.gz timeout=120 #headers="Cookie:oraclelicense=accept-securebackup-cookie"
 
 #- name: Downloading Java JDK
 #  shell:  curl -v -j -k -L -H "Cookie:oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-linux-x64.rpm > /tmp/jdk-8u92-linux-x64.rpm

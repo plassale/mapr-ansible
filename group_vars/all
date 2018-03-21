@@ -3,7 +3,7 @@ mapr_ecosystem_url: http://package.mapr.com/releases/MEP/MEP-4.1.0/
 mapr_gpg_url: http://package.mapr.com/releases/pub/maprgpg.key
 
 # JDK choose: openjdk18 or oraclejdk18
-jdk: openjdk18
+jdk: oraclejdk18
 #jdk_folder: /opt/java/jdk1.8.0_111
 # redhat openjdk java path
 jdk_folder: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-0.b13.el7_3.x86_64
@@ -27,7 +27,7 @@ security_all: maprsasl
 mapr_security: "{{ security_all }}"
 
 # Additional information for Kerberos
-mapr_kerberos_realm: PS.MAPR.COM
+mapr_kerberos_realm: SpringerNature.MAPR.COM
 mapr_kerberos_local_keytabs_dir: /Users/chufe/Documents/mykeytabs
 
 # Will delete existing keys (cldb.key, maprserverticket, ssl_truststore, ssl_keystore) and generate new one: true /false
@@ -117,7 +117,7 @@ oozie_smtp_password:
 # passwd is mapr
 mapr_passwd: $6$GzlcP5ei$E6P9QM40O6KJFLZ3wMcg3jzQBNxGXrf8yc77CbCmf0KtFSxK0mpCParhc3WVNEAm4fHKPAqyRV9rsiF6DAFlW0
 
-disks: /dev/nvme1n1,/dev/nvme2n1,/dev/nvme3n1
+disks: /dev/xvdb,/dev/xvdc,/dev/xvdd
 disk_storage_pool_size: 3
 
 # Third party components
