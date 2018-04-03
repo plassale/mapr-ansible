@@ -1,4 +1,8 @@
 - name: Apply common configuration to all nodes
+  hosts: all
+  tasks:
+    - set_fact: client_install="true"
+- name: Apply common configuration to all nodes
   hosts: common
   roles:
     - {role: common-oraclejdk18, when: jdk == 'oraclejdk'}
@@ -15,32 +19,20 @@
 - name: Setup global vars
   hosts: all
   roles:
-    - mapr-configure-vars
+- name: Setup global vars
+  hosts: all
+  roles:
+    - mapr-global-vars
+    - mapr-configure-vars-zk
+    - mapr-configure-vars-cldb
 - name: Install MapR client
   hosts: mapr-client
   roles:
     - mapr-configure-repository
     - mapr-client-install
-    - mapr-patch-client-install
     - mapr-configure-subnets
     - {role: mapr-client-configure-unsecure, when: mapr_security == 'none'}
     - {role: mapr-client-configure-nativesecurity-secure, when: mapr_security == 'maprsasl'}
-- name: Install Drill on YARN
-  hosts: mapr-drill-yarn
-  roles:
-    - mapr-drill-yarn-install
-- name: Install Flume
-  hosts: mapr-flume
-  roles:
-    - mapr-flume-install
-- name: Install HBase CLI
-  hosts: mapr-hbase-cli
-  roles:
-    - mapr-hbase-cli-install
-- name: Install HBase REST and Thrift Server
-  hosts: mapr-hbase-thrift-rest
-  roles:
-    - mapr-hbase-thrift-rest-install
 - name: Setup Hive Variables
   hosts: all
   roles:
@@ -49,54 +41,38 @@
   hosts: mapr-hive-cli
   roles:
     - mapr-hive-cli-install
-- name: Install Hive Server 2
-  hosts: mapr-hive-server2
+- name: Install Kafka
+  hosts: mapr-kafka
   roles:
-    - mapr-hive-server2-install
-- name: Install Mahout
-  hosts: mapr-mahout
-  roles:
-    - mapr-mahout-install
-- name: Install Pig
-  hosts: mapr-pig
-  roles:
-    - mapr-pig-install
-- name: Install Sqoop 2 Server
-  hosts: mapr-sqoop2-server
-  roles:
-    - mapr-sqoop2-server-install
-- name: Install Sqoop 2 Client
-  hosts: mapr-sqoop2-client
-  roles:
-    - mapr-sqoop2-client-install
-- name: Install Hue
-  hosts: mapr-hue
-  roles:
-    - mapr-hue-install
-- name: Install Oozie
-  hosts: mapr-oozie
-  roles:
-    - mapr-oozie-install
-- name: Install HttpFS
-  hosts: mapr-httpfs
-  roles:
-    - mapr-httpfs-install
+    - mapr-kafka-install
 - name: Install Spark on YARN
   hosts: mapr-spark-yarn
   roles:
     - mapr-spark-yarn-install
+- name: Install Flume
+  hosts: mapr-flume
+  roles:
+    - mapr-flume-install
+- name: Install HBase CLI
+  hosts: mapr-hbase-cli
+  roles:
+    - mapr-hbase-cli-install
+- name: Install Pig
+  hosts: mapr-pig
+  roles:
+    - mapr-pig-install
 - name: Install NFS loopback
   hosts: mapr-nfsloopback
   roles:
     - mapr-nfsloopback-install
 - name: Install mapr-posix-client-basic (FUSE)
-  hosts: mapr-posix-client-basic-install
+  hosts: mapr-posix-client-basic
   roles:
     - mapr-posix-client-basic-install
     - {role: mapr-patch-posix-client-basic-install, when: mapr_patch_url is defined and ansible_os_family != 'Debian'}
 
 - name: Install mapr-posix-client-platinum (FUSE)
-  hosts: mapr-posix-client-platinum
+  hosts: mapr-posix-client
   roles:
     - mapr-posix-client-platinum-install
     - {role: mapr-patch-posix-client-platinum-install, when: mapr_patch_url is defined and ansible_os_family != 'Debian'}
