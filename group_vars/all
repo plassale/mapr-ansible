@@ -1,10 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 mapr_release_url: http://package.mapr.com/releases/v6.0.1
 mapr_ecosystem_url: http://package.mapr.com/releases/MEP/MEP-5.0.0/
 mapr_gpg_url: http://package.mapr.com/releases/pub/maprgpg.key
 
 # JDK choose: openjdk18 or oraclejdk18
+<<<<<<< HEAD
 jdk: oraclejdk18
+=======
+jdk: openjdk18
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 #jdk_folder: /opt/java/jdk1.8.0_111
 # redhat openjdk java path
 jdk_folder: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.121-0.b13.el7_3.x86_64
@@ -19,9 +26,16 @@ force_reconfigure_sh: True
 # if true only one node at once will be restarted, if false all nodes will be restarted at the same time.
 rolling_restart: False
 warden_restart_wait_time: 30
+<<<<<<< HEAD
 
 # YARN settings
 # Enables YARn log aggregation
+=======
+virtual_machine: False
+
+# YARN settings
+# Enables YARN log aggregation
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 yarn_log_aggregation: False
 # Maximum size for one YARN container
 yarn_max_container_allocation_in_mb: 131072
@@ -32,14 +46,22 @@ yarn_spark_shuffle: True
 ####### Enable security features ##########
 # Default value for all components: mapr core and ecosystem
 # Options: none, maprsasl, kerberos
+<<<<<<< HEAD
 security_all: none
+=======
+security_all: maprsasl
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 
 # MapR-Core security
 # Options: none, maprsasl, kerberos
 mapr_security: "{{ security_all }}"
 
 # Additional information for Kerberos
+<<<<<<< HEAD
 mapr_kerberos_realm: SpringerNature.MAPR.COM
+=======
+mapr_kerberos_realm: PS.MAPR.COM
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 mapr_kerberos_local_keytabs_dir: /Users/chufe/Documents/mykeytabs
 
 # Will delete existing keys (cldb.key, maprserverticket, ssl_truststore, ssl_keystore) and generate new one: true /false
@@ -98,6 +120,14 @@ hue_db_schema: hue
 #hue_db_port: 1521
 hue_db_port: 3306
 
+<<<<<<< HEAD
+=======
+# move the spill from the local file system (/tmp) to a mapr fs local volume
+drill_maprspill: False
+# drill pstore options are none, db or zk
+drill_pstore: db
+
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 # Types are: embedded, oracle, mysql
 hive_db_type: mysql
 hive_with_tez: True
@@ -136,7 +166,11 @@ oozie_smtp_password:
 # passwd is mapr
 mapr_passwd: $6$GzlcP5ei$E6P9QM40O6KJFLZ3wMcg3jzQBNxGXrf8yc77CbCmf0KtFSxK0mpCParhc3WVNEAm4fHKPAqyRV9rsiF6DAFlW0
 
+<<<<<<< HEAD
 disks: /dev/xvdb,/dev/xvdc,/dev/xvdd
+=======
+disks: /dev/nvme1n1,/dev/nvme2n1,/dev/nvme3n1
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 disk_storage_pool_size: 3
 
 # Third party components
@@ -145,6 +179,7 @@ zeppelin_git_repo: https://github.com/apache/incubator-zeppelin.git
 zeppelin_git_hash: v0.7.3
 
 # Get url from https://www.rstudio.com/products/rstudio/download-commercial/
+<<<<<<< HEAD
 =======
 mapr_release_url: http://package.mapr.com/releases/v6.0.1
 mapr_ecosystem_url: http://package.mapr.com/releases/MEP/MEP-5.0.0/
@@ -294,4 +329,6 @@ zeppelin_git_hash: v0.7.3
 
 # Get url from https://www.rstudio.com/products/rstudio/download-commercial/
 >>>>>>> 0b970a1c8fbdc37b5ea7b6d6d7a935acd27b1b3b
+=======
+>>>>>>> 0b048c28ef4729a8c9503794739045adac9c73e2
 rstudio_server_pro_deb: http://download2.rstudio.org/rstudio-server-pro-0.99.903-amd64.deb
